@@ -173,7 +173,6 @@ public class ReadWriteFileUtils {
             }
             File markdown = new File(markdownPath);
             if (!markdown.exists()) markdown.createNewFile();
-            if (isNotCreated(markdown)) return;
             if (isReadable(markdown)) {
                 for (SolutionLeetcode cl : SolutionClasses) {
                     if (isEmpty(markdown)) {
