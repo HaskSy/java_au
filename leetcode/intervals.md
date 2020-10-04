@@ -1,5 +1,8 @@
-Non-overlapping Intervals
+# Intervals
++ [Non-overlapping Intervals](#non-overlapping-intervals)
+## Non-overlapping Intervals
 https://leetcode.com/problems/non-overlapping-intervals/
+```java
 class Solution {
     public int eraseOverlapIntervals(int[][] intervals) {
         if (intervals == null || intervals.length <= 1) return 0;
@@ -14,3 +17,4 @@ class Solution {
         return count;
     }
 }
+```
