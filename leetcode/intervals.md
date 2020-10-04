@@ -19,6 +19,7 @@ class Solution {
         return count;
     }
 }
+```
 ## Merge Intervals
 https://leetcode.com/problems/merge-intervals/
 ```java
