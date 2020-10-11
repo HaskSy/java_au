@@ -23,9 +23,7 @@ public class ReadWriteFileUtils {
         return true;
     }
 
-    private static boolean isEmpty(File file) {
-        return file == null || file.length() == 0;
-    }
+    private static boolean isEmpty(File file) { return file == null || file.length() == 0; }
 
     private static boolean isURL(String s) {
         return s.startsWith("https://");
@@ -136,8 +134,7 @@ public class ReadWriteFileUtils {
             } else {
                 if (s.startsWith("+ [")) {
                     output = s;
-                }
-                else break;
+                } else break;
             }
         }
         return lines.indexOf(output);

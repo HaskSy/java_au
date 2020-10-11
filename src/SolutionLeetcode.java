@@ -16,15 +16,15 @@ public class SolutionLeetcode {
         return (this.sourceCode == null || this.sourceCode.length() == 0) ? null : this.sourceCode;
     }
 
-    final void setTitle(String title) {
+    final public void setTitle(String title) {
         this.title = title;
     }
 
-    final void setLink(String link) {
+    final public void setLink(String link) {
         this.link = link;
     }
 
-    final void setSourceCode(String sourceCode) {
+    final public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
     }
 }
