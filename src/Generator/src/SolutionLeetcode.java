@@ -1,3 +1,5 @@
+package Generator.src;
+
 public class SolutionLeetcode {
     private String title = null;
     private String link = null;
