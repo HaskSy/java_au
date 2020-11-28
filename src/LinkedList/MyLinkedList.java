@@ -3,36 +3,14 @@ package LinkedList;
 class MyLinkedList {
 
     static class Node {
-        private int value;
+        private final int value;
         private Node nextNode;
         private Node prevNode;
 
         public Node(int value) {
             this.value = value;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public Node getNextNode() {
-            return nextNode;
-        }
-
-        public Node getPrevNode() {
-            return prevNode;
-        }
-
-        public void setValue(int value) {
-            this.value = value;
-        }
-
-        public void setNextNode(Node nextNode) {
-            this.nextNode = nextNode;
-        }
-
-        public void setPrevNode(Node prevNode) {
-            this.prevNode = prevNode;
+            nextNode = null;
+            prevNode = null;
         }
     }
 
@@ -47,9 +25,9 @@ class MyLinkedList {
     }
 
     public int get(int index) {
-        Node head = startNode;
+        Node head = startNode.nextNode;
         if (index >= length || index < 0) return -1;
-        for (int count = 0; count < index; count++) head = head.nextNode;
+        for (int i = 0; i < index; i++) head = head.nextNode;
         return head.value;
     }
 
@@ -57,7 +35,6 @@ class MyLinkedList {
         Node add = new Node(val);
         add.nextNode = startNode;
         add.prevNode = null;
-        startNode.prevNode = add;
         startNode = add;
         length++;
     }
@@ -66,14 +43,13 @@ class MyLinkedList {
         Node add = new Node(val);
         add.prevNode = endNode;
         add.nextNode = null;
-        endNode.nextNode = add;
         endNode = add;
         length++;
     }
 
     public void addAtIndex(int index, int val) {
         Node add = new Node(val);
-        Node head = startNode;
+        Node head = startNode.nextNode;
 
         if (index == 0) {
             addAtHead(val);
@@ -90,20 +66,34 @@ class MyLinkedList {
 
         for (int i = 0; i < index; i++) head = head.nextNode;
 
-        add.nextNode = head.nextNode;
-        add.prevNode = head;
-        head.nextNode.nextNode.prevNode = add;
+        Node tmp = head.nextNode;
         head.nextNode = add;
+        head.nextNode.nextNode = tmp;
         length++;
     }
 
     public void deleteAtIndex(int index) {
-        Node head = startNode;
+        Node head = startNode.nextNode;
+
+        if (index == 0) {
+            // Добавить удаление самого элемента
+            startNode = startNode.nextNode;
+            startNode.prevNode = null;
+        }
+
+        if (index == length - 1) {
+            // Добавить удаление самого элемента
+            endNode = endNode.prevNode;
+            endNode.nextNode = null;
+        }
         if (index >= length || index < 0)
             return;
 
         for (int i = 0; i < index; i++) head = head.nextNode;
 
+        head.prevNode.nextNode = head.nextNode;
+        head.nextNode.prevNode = head.prevNode;
+        head = null;
         length--;
     }
 }
