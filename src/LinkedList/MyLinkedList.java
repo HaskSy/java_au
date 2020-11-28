@@ -1,17 +1,51 @@
 package LinkedList;
 
-class MyLinkedList {
+import org.jetbrains.annotations.NotNull;
 
-    static class Node {
-        private final int value;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class MyLinkedList<T> implements Iterable<T>{
+
+
+    @NotNull
+    @Override
+    public Iterator<T> iterator() {
+        return new MyIterator<>(this);
+    }
+
+    public class MyIterator<E> implements Iterator<E>{
+
+        int index = 0;
+        MyLinkedList<E> eMyLinkedList;
+
+        public MyIterator(MyLinkedList<E> eMyLinkedList) {
+            this.eMyLinkedList = eMyLinkedList;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return eMyLinkedList.length >= index + 1;
+        }
+
+        @Override
+        public E next() throws NoSuchElementException {
+            return eMyLinkedList.get(index++);
+        }
+
+    }
+
+    class Node {
+        private final T value;
         private Node nextNode;
         private Node prevNode;
 
-        public Node(int value) {
+        public Node(T value) {
             this.value = value;
             nextNode = null;
             prevNode = null;
         }
+
     }
 
     int length;
@@ -24,14 +58,14 @@ class MyLinkedList {
         endNode = null;
     }
 
-    public int get(int index) {
+    public T get(int index) {
         Node head = startNode;
-        if (index >= length || index < 0) return -1;
+        if (index >= length || index < 0) return null; //Здесь уже -1 не подходит, на что можно заменить?
         for (int i = 0; i < index; i++) head = head.nextNode;
         return head.value;
     }
 
-    public void addAtHead(int val) {
+    public void addAtHead(T val) {
         Node add = new Node(val);
         if (startNode == null) {
             startNode = add;
@@ -45,7 +79,7 @@ class MyLinkedList {
         length++;
     }
 
-    public void addAtTail(int val) {
+    public void addAtTail(T val) {
         Node add = new Node(val);
         if (startNode == null) {
             startNode = add;
@@ -59,7 +93,7 @@ class MyLinkedList {
         length++;
     }
 
-    public void addAtIndex(int index, int val) {
+    public void addAtIndex(int index, T val) {
         if (index > length || index < 0) return;
 
         if (index == 0) {
@@ -92,20 +126,16 @@ class MyLinkedList {
                 startNode = null;
                 endNode = null;
             } else {
-                Node del = startNode;
                 startNode.nextNode.prevNode = null;
                 startNode = startNode.nextNode;
-                del = null;
             }
             length--;
             return;
         }
 
         if (index == length - 1) {
-            Node del = endNode;
             endNode.prevNode.nextNode = null;
             endNode = endNode.prevNode;
-            del = null;
             length--;
             return;
         }
@@ -114,7 +144,6 @@ class MyLinkedList {
         for (int i = 0; i < index; i++) head = head.nextNode;
         head.prevNode.nextNode = head.nextNode;
         head.nextNode.prevNode = head.prevNode;
-        head = null;
         length--;
     }
 }
