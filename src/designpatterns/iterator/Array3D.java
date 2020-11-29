@@ -14,12 +14,12 @@ public class Array3D<T> implements Iterator<T> {
 
     public Array3D(T[][][] array3d) {
         this.array3d = array3d;
-        size = array3d.length *
+        this.size = array3d.length *
                 array3d[0].length *
                 array3d[0][0].length;
-        matrix = 0;
-        row = 0;
-        col = 0;
+        this.matrix = 0;
+        this.row = 0;
+        this.col = 0;
     }
 
     private int prevMatrix;
@@ -29,7 +29,7 @@ public class Array3D<T> implements Iterator<T> {
 
     @Override
     public boolean hasNext() {
-        return index < size - 1;
+        return index < size;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class Array3D<T> implements Iterator<T> {
         }
 
         if (element == null && this.hasNext()) {
-            this.next();
+            return this.next();
         }
         return element;
     }
