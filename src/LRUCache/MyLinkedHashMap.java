@@ -30,63 +30,63 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
     private Node endNode;
 
     public Entry<K, V> get(int index) {
-
         Node head = this.startNode;
-        if (index >= this.size() || index < 0) return null; //Здесь уже -1 не подходит, на что можно заменить?
+        if (index >= this.size() || index < 0) return null;
         for (int i = 0; i < index; i++) head = head.nextNode;
         return head.entry;
     }
 
-    public void addAtHead(Entry<K, V> val) {
-        Node add = new Node(val);
+
+    public V addAtHead(Entry<K, V> entry) {
+        Node add = new Node(entry);
         if (this.startNode == null) {
             this.startNode = add;
             this.endNode = add;
-            this.put(val.getKey(), val.getValue());
-            return;
+            super.put(entry.getKey(), entry.getValue());
+            return entry.getValue();
         }
         add.nextNode = this.startNode;
         this.startNode.prevNode = add;
         this.startNode = add;
-        this.put(val.getKey(), val.getValue());
+        super.put(entry.getKey(), entry.getValue());
+        return entry.getValue();
     }
 
-    public void addAtHead(K k, V v) {
-        addAtHead(new SimpleEntry<>(k ,v));
+    public V addAtHead(K key, V value) {
+        return addAtHead(new SimpleEntry<>(key ,value));
     }
 
-    public void addAtTail(Entry<K, V> val) {
-        Node add = new Node(val);
+    public V addAtTail(Entry<K, V> entry) {
+        Node add = new Node(entry);
         if (this.startNode == null) {
             this.startNode = add;
             this.endNode = add;
-            this.put(val.getKey(), val.getValue());
-            return;
+            super.put(entry.getKey(), entry.getValue());
+            return entry.getValue();
         }
         add.prevNode = this.endNode;
         this.endNode.nextNode = add;
         this.endNode = add;
-        this.put(val.getKey(), val.getValue());
+        super.put(entry.getKey(), entry.getValue());
+        return entry.getValue();
     }
 
-    public void addAtTail(K k, V v) {
-        addAtTail(new SimpleEntry<>(k ,v));
+    public V addAtTail(K key, V value) {
+        return addAtTail(new SimpleEntry<>(key, value));
     }
 
-    public void addAtIndex(int index, Entry<K, V> val) {
-        if (index > this.size() || index < 0) return;
+    public V addAtIndex(int index, Entry<K, V> entry) {
+        if (index > this.size() || index < 0) return null;
 
         if (index == 0) {
-            addAtHead(val);
-            return;
+            return addAtHead(entry);
         }
 
         if (index == this.size()) {
-            addAtTail(val);
-            return;
+            return addAtTail(entry);
         }
 
-        Node add = new Node(val);
+        Node add = new Node(entry);
 
         Node head = this.startNode;
         for (int i = 0; i < index; i++) head = head.nextNode;
@@ -95,11 +95,12 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
         add.nextNode = head;
         head.prevNode.nextNode = add;
         head.prevNode = add;
-        this.put(val.getKey(), val.getValue());
+        super.put(entry.getKey(), entry.getValue());
+        return entry.getValue();
     }
 
-    public void addAtIndex(int index, K k, V v) {
-        addAtIndex(index, new SimpleEntry<>(k, v));
+    public void addAtIndex(int index, K key, V value) {
+        addAtIndex(index, new SimpleEntry<>(key, value));
     }
 
     public void deleteAtIndex(int index) {
@@ -107,11 +108,11 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
 
         if (index == 0) {
             if (this.size() == 1) {
-                this.clear();
+                super.clear();
                 this.startNode = null;
                 this.endNode = null;
             } else {
-                this.remove(this.startNode.entry.getKey());
+                super.remove(this.startNode.entry.getKey());
                 this.startNode = this.startNode.nextNode;
                 this.startNode.prevNode.nextNode = null;
                 this.startNode.prevNode = null;
@@ -120,7 +121,7 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
         }
 
         if (index == this.size() - 1) {
-            this.remove(this.endNode.entry.getKey());
+            super.remove(this.endNode.entry.getKey());
             this.endNode = this.endNode.prevNode;
             this.endNode.nextNode.prevNode = null;
             this.endNode.nextNode = null;
@@ -129,10 +130,17 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
 
         Node head = this.startNode;
         for (int i = 0; i < index; i++) head = head.nextNode;
-        this.remove(head.entry.getKey());
+        super.remove(head.entry.getKey());
         head.prevNode.nextNode = head.nextNode;
         head.nextNode.prevNode = head.prevNode;
         head.nextNode = null;
         head.prevNode = null;
     }
+
+    @Override
+    public V put(K key, V value) {
+        return addAtTail(key, value);
+    }
+
+
 }

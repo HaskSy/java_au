@@ -1,5 +1,6 @@
 package LRUCache;
 
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
@@ -10,6 +11,7 @@ public class Main {
         myLinkedHashMap.addAtHead("Hib", 3);
         myLinkedHashMap.addAtHead("Hic", 124);
         myLinkedHashMap.addAtHead("Hid", 152);
+
 
         for (Map.Entry<String, Integer> a: myLinkedHashMap) {
             System.out.println(a);
