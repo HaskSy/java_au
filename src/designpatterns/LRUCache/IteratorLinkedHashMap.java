@@ -1,4 +1,4 @@
-package LRUCache;
+package designpatterns.LRUCache;
 
 import java.util.Iterator;
 import java.util.Map;

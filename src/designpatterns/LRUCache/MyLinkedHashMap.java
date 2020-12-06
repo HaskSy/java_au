@@ -1,4 +1,4 @@
-package LRUCache;
+package designpatterns.LRUCache;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -11,7 +11,7 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
     @NotNull
     @Override
     public Iterator<Entry<K, V>> iterator() {
-        return new IteratorLinkedHashMap<K, V>(this);
+        return new IteratorLinkedHashMap<>(this);
     }
 
     public MyLinkedHashMap() {

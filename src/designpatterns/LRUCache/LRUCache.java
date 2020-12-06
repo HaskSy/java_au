@@ -1,7 +1,7 @@
-package LRUCache;
+package designpatterns.LRUCache;
 
 public class LRUCache<K, V> {
-    private final MyLinkedHashMap<K, V> cache = new MyLinkedHashMap<K, V>();
+    private final MyLinkedHashMap<K, V> cache = new MyLinkedHashMap<>();
     private final int capacity;
 
     public LRUCache(int capacity) {
