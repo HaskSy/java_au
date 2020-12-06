@@ -11,7 +11,12 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
     @NotNull
     @Override
     public Iterator<Entry<K, V>> iterator() {
-        return new IteratorLinkedHashMap<>(this);
+        return new IteratorLinkedHashMap<K, V>(this);
+    }
+
+    public MyLinkedHashMap() {
+        this.startNode = null;
+        this.endNode = null;
     }
 
     class Node {
@@ -99,43 +104,50 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
         return entry.getValue();
     }
 
-    public void addAtIndex(int index, K key, V value) {
-        addAtIndex(index, new SimpleEntry<>(key, value));
+    public V addAtIndex(int index, K key, V value) {
+        return addAtIndex(index, new SimpleEntry<>(key, value));
     }
 
-    public void deleteAtIndex(int index) {
-        if (index >= this.size() || index < 0) return;
+    public V deleteAtIndex(int index) {
+        if (index >= this.size() || index < 0) return null;
 
+        V returnable;
         if (index == 0) {
             if (this.size() == 1) {
                 super.clear();
+                returnable = this.startNode.entry.getValue();
                 this.startNode = null;
                 this.endNode = null;
             } else {
                 super.remove(this.startNode.entry.getKey());
+                returnable = this.startNode.entry.getValue();
                 this.startNode = this.startNode.nextNode;
                 this.startNode.prevNode.nextNode = null;
                 this.startNode.prevNode = null;
             }
-            return;
+            return returnable;
         }
 
         if (index == this.size() - 1) {
             super.remove(this.endNode.entry.getKey());
+            returnable = this.endNode.entry.getValue();
             this.endNode = this.endNode.prevNode;
             this.endNode.nextNode.prevNode = null;
             this.endNode.nextNode = null;
-            return;
+            return returnable;
         }
 
         Node head = this.startNode;
         for (int i = 0; i < index; i++) head = head.nextNode;
         super.remove(head.entry.getKey());
+        returnable = head.entry.getValue();
         head.prevNode.nextNode = head.nextNode;
         head.nextNode.prevNode = head.prevNode;
         head.nextNode = null;
         head.prevNode = null;
+        return returnable;
     }
+
 
     @Override
     public V put(K key, V value) {
