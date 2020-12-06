@@ -1,7 +1,9 @@
 package designpatterns.LRUCache;
 
+import java.util.Map;
+
 public class LRUCache<K, V> {
-    private final MyLinkedHashMap<K, V> cache = new MyLinkedHashMap<>();
+    public final MyLinkedHashMap<K, V> cache = new MyLinkedHashMap<>();
     private final int capacity;
 
     public LRUCache(int capacity) {
@@ -12,27 +14,31 @@ public class LRUCache<K, V> {
         if (!cache.containsKey(key)) {
             return null;
         }
-        update(key);
-        return cache.get(key);
+        Map.Entry<K, V> entry = cache.getByKey(key);
+        cache.delete(key);
+        cache.addAtTail(entry);
+        return entry.getValue();
     }
 
-    public void put(K key, V value) {
+    public V put(K key, V value) {
         if (cache.containsKey(key)) {
+            cache.delete(key);
             cache.put(key, value);
-            update(key);
+            return null;
         }
         if (cache.size() >= this.capacity) {
-            K del = cache.keySet().iterator().next();
-            cache.remove(del);
+            cache.deleteAtIndex(0);
         }
         cache.put(key, value);
+        return null;
     }
 
-    public void update(K key) {
-        V val = cache.get(key);
-        cache.remove(key);
-        cache.put(key, val);
+    @Override
+    public String toString() {
+        return "LRUCache{" +
+                "cache=" + cache +
+                ", capacity=" + capacity +
+                '}';
     }
-
-
 }
+
