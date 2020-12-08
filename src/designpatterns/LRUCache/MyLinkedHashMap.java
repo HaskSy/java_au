@@ -33,31 +33,19 @@ public class MyLinkedHashMap<K, V> extends HashMap<K, V> implements Iterable<Map
         @Override
         public String toString() {
             if (this.nextNode == null && this.prevNode == null) {
-                return "Node{" +
-                        "prevNode=" + "null" +
-                        ", entry=" + entry +
-                        ", nextNode=" + "null" +
-                        '}';
+                return String.format("Node: prevNode= %s , entry= %s , nextNode= %s }",
+                        null, entry, null);
             }
             if (this.prevNode == null) {
-                return "Node{" +
-                        "prevNode=" + null +
-                        ", entry=" + entry +
-                        ", nextNode=" + nextNode.entry +
-                        '}';
+                return String.format("Node: prevNode= %s , entry= %s , nextNode= %s }",
+                        null, entry, nextNode.entry);
             }
             if (this.nextNode == null) {
-                return "Node{" +
-                        "prevNode=" + prevNode.entry +
-                        ", entry=" + entry +
-                        ", nextNode=" + null +
-                        '}';
+                return String.format("Node: prevNode= %s , entry= %s , nextNode= %s }",
+                        prevNode.entry, entry, null);
             }
-            return "Node{" +
-                    "prevNode=" + prevNode.entry +
-                    ", entry=" + entry +
-                    ", nextNode=" + nextNode.entry +
-                    '}';
+            return String.format("Node: prevNode= %s , entry= %s , nextNode= %s }",
+                    prevNode.entry, entry, nextNode.entry);
         }
     }
 
