@@ -3,8 +3,8 @@ package Design.Mailbox;
 public enum Tags {
 
         IMPORTANT("important"),
-        MARKED("marked");
-
+        MARKED("marked"),
+        UNTAGGED("");
 
         private String name;
 
@@ -15,4 +15,7 @@ public enum Tags {
         Tags(String name) {
             this.name = name;
         }
+
+
 }
+

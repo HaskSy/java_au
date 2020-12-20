@@ -5,11 +5,11 @@ public class Message {
     private final String from;
     private final String to;
     private final String content;
-    private String tags;
-    private String status;
+    private Tags tags;
+    private Status status;
 
 
-    public Message(String from, String to, String content, String tags, String status) {
+    public Message(String from, String to, String content, Tags tags, Status status) {
         this.from = from;
         this.to = to;
         this.content = content;
@@ -29,20 +29,29 @@ public class Message {
         return content;
     }
 
-    public String getTags() {
+    public Tags getTags() {
         return tags;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setTags(String tags) {
+    public void setTags(Tags tags) {
         this.tags = tags;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
+    @Override
+    public String toString() {
+        return "Message\n" +
+                "   from: " + from + '\n' +
+                "   to: " + to + "\n\n" +
+                "   tags: " + tags + '\n' +
+                "   status: " + status + '\n' +
+                "       " + content + '\n';
+    }
 }
