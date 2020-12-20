@@ -49,9 +49,9 @@ public class Message {
     public String toString() {
         return "Message\n" +
                 "   from: " + from + '\n' +
-                "   to: " + to + "\n\n" +
+                "   to: " + to + "\n" +
                 "   tags: " + tags + '\n' +
-                "   status: " + status + '\n' +
+                "   status: " + status + "\n\n" +
                 "       " + content + '\n';
     }
 }
