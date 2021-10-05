@@ -45,4 +45,7 @@ public class Channel {
     public void switchSubscribed() {
         this.subscribed = !subscribed;
     }
+
+    comp
 }
+

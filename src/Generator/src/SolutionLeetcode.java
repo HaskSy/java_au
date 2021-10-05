@@ -1,5 +1,7 @@
 package Generator.src;
 
+import java.util.Objects;
+
 public class SolutionLeetcode {
     private String title = null;
     private String link = null;
@@ -28,5 +30,20 @@ public class SolutionLeetcode {
 
     final public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SolutionLeetcode that = (SolutionLeetcode) o;
+        return Objects.equals(title, that.title) &&
+                Objects.equals(link, that.link) &&
+                Objects.equals(sourceCode, that.sourceCode);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(title, link, sourceCode);
     }
 }
